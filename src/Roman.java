@@ -16,8 +16,8 @@ public enum Roman { // Перечисление римских цифр
         return this.arabic;
     }
     public static List getRevSortVal() { //метод для получения отсортированной в порядке убывания последовательности из Римских цифр
-        return Arrays.stream(values()).sorted(Comparator.comparing((Roman e) -> e.arabic).reversed())
-                .collect(Collectors.toList());
+        return Arrays.stream(values())
+                     .sorted(Comparator.comparing((Roman e) -> e.arabic).reversed())
+                     .collect(Collectors.toList());
     }
 }
-

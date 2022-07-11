@@ -3,30 +3,20 @@ import java.util.regex.Pattern;
 import java.util.List;
 
 
+
 public class Main {
     public static void main(String[] args) {
         Scanner inFormulaScan = new Scanner(System.in);
 
-        Main MainF = new Main();
-
         try {
-            System.out.println(MainF.calc(inFormulaScan.nextLine()));
-        } catch (IncorrectFormula err) {
-            System.out.println(err);
-        } catch (InvalidSign err) {
-            System.out.println(err);
-        } catch (InputOutOfRange err) {
-            System.out.println(err);
-        } catch (IncorrectNumber err) {
-            System.out.println(err);
-        } catch (DifferentNumberSystems err) {
-            System.out.println(err);
-        } catch (OutOfRange err) {
+            System.out.println(calc(inFormulaScan.nextLine()));
+        } catch (Exception err) {
             System.out.println(err);
         }
     }
-    public static  String calc(String input) throws IncorrectFormula, InvalidSign, InputOutOfRange, IncorrectNumber, DifferentNumberSystems, OutOfRange {
-        input = input.toUpperCase(); //преобразуем все символы строки римского числа в верхний регистр (на всякий ;) )
+
+    public static String calc(String input) throws IncorrectFormula, InvalidSign, InputOutOfRange, IncorrectNumber, DifferentNumberSystems, OutOfRange {
+        input = input.toUpperCase(); //преобразуем все символы строки в верхний регистр (на всякий ;) )
         input = input.replaceAll("\\s+", " ");// убираем лишние пробелы
         String[] inFormula = input.split(" ");              // Разделяем строку на отдельные лексемы
 
@@ -61,11 +51,11 @@ public class Main {
 
     private static String calRoma(String[] correctFormula) throws OutOfRange, InputOutOfRange { //Метод вычисления римского выражения
         //Конвертируем в арабскую систему и передаём параметры методу вычисления арабского выражения
-        int c = calArabic(RomanToArabic(correctFormula[0]), correctFormula[1], RomanToArabic(correctFormula[2]));
+        int c = calArabic(romanToArabic(correctFormula[0]), correctFormula[1], romanToArabic(correctFormula[2]));
         if (c <= 0){ // проверяем не получилось ли у нас отрицательное или нулевое значение
             throw new OutOfRange("В римской системе нет отрицательных чисел и ноля");
         }
-        return ArabicToRoman(c); //преобразуем обратно в римское число и выдаём результат
+        return arabicToRoman(c); //преобразуем обратно в римское число и выдаём результат
     }
 
     private static int calArabic(int a, String inOperator, int b) throws InputOutOfRange {//метод вычисления арабского выражения
@@ -83,7 +73,7 @@ public class Main {
         };
     }
 
-    private static String ArabicToRoman(int arabic) { //Метод перевода арабских чисел в римские
+    private static String arabicToRoman(int arabic) { //Метод перевода арабских чисел в римские
 
         List lRoman = Roman.getRevSortVal();
         int i = 0;
@@ -102,7 +92,7 @@ public class Main {
         return sbRes.toString();
     }
 
-    private static int RomanToArabic(String roman) {// Метод перевода римских чисел в арабские
+    private static int romanToArabic(String roman) {// Метод перевода римских чисел в арабские
 
         //  String sRomanRes = roman.toUpperCase(); //преобразуем все символы строки римского числа в верхний регистр (на всякий ;) )
         int result = 0;
@@ -113,7 +103,7 @@ public class Main {
             Roman symbol = (Roman) lRoman.get(i);
             if (roman.startsWith(symbol.name())) { // если префикс совпадает, то прибавляем соответствующее значение к результату
                 result += symbol.toInt();
-                roman = roman.substring(symbol.name().length()); // Убираем просканированный элемент из строки лимского числа
+                roman = roman.substring(symbol.name().length()); // Убираем просканированный элемент из строки римского числа
             } else { //если префикс не совпадает, то идём следующую итерацию
                 i++;
             }
