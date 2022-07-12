@@ -93,8 +93,6 @@ public class Main {
     }
 
     private static int romanToArabic(String roman) {// Метод перевода римских чисел в арабские
-
-        //  String sRomanRes = roman.toUpperCase(); //преобразуем все символы строки римского числа в верхний регистр (на всякий ;) )
         int result = 0;
         List lRoman = Roman.getRevSortVal();
         int i = 0;
